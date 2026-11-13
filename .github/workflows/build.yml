@@ -1,0 +1,40 @@
+name: Build mod jars
+
+# Builds both versions online - nothing to install on your computer.
+# Run it: GitHub repo -> Actions tab -> "Build mod jars" -> Run workflow.
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dir: fabric-1.21
+            java: '21'
+            gradle: '8.14.3'
+          - dir: fabric-26.3
+            java: '25'
+            gradle: '9.1.0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: ${{ matrix.gradle }}
+      - name: Build
+        run: gradle build
+        working-directory: ${{ matrix.dir }}
+      - name: Keep only the real mod jar (not the -sources jar)
+        run: rm -f build/libs/*-sources.jar
+        working-directory: ${{ matrix.dir }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.dir }}-jar
+          path: ${{ matrix.dir }}/build/libs/*.jar
