@@ -13,6 +13,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - dir: fabric-1.21.11
+            java: '21'
+            gradle: '9.1.0'
           - dir: fabric-1.21
             java: '21'
             gradle: '8.14.3'
