@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "cinysarmorhud",
+  "version": "${version}",
+  "name": "ciny's armor HUD (chess.com)",
+  "description": "Armor HUD that rates each armor piece's durability with chess move symbols: Brilliant, Best Move, Inaccuracy, Blunder. Inspired by uku's Armor HUD.",
+  "authors": ["Ciny"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.example.cinysarmorhud.CinysArmorHudClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
